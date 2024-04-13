@@ -1,7 +1,7 @@
 FROM nginx:alpine-slim
 
-RUN apk add -U s3fs-fuse && sed -i 's@user  nginx@user  root@g' /etc/nginx/nginx.conf
+RUN apk add -U s3fs-fuse
 
-COPY default.conf       /etc/nginx/conf.d/
-COPY mount.sh           /sbin/
-COPY entrypoint-s3fs.sh /docker-entrypoint.d/
+COPY default.conf   /etc/nginx/conf.d/
+COPY mount.sh       /sbin/
+COPY mount-s3fs.sh  /docker-entrypoint.d/

@@ -18,10 +18,10 @@ if [ -z "$S3_PASSWORD" ]; then
   echo "undefined 'S3_PASSWORD'." > /dev/stderr
   exit 1
 fi
-if [ -z "$S3_BUCKETS" ]; then
-  echo "undefined 'S3_BUCKETS'." > /dev/stderr
+if [ -z "$S3_BUCKET_LIST" ]; then
+  echo "undefined 'S3_BUCKET_LIST'." > /dev/stderr
   exit 1
 fi
 
 echo "${S3_USER}:${S3_PASSWORD}" > /etc/passwd-s3fs && chmod 600 /etc/passwd-s3fs
-echo $S3_BUCKETS | sed 's+,+\n+g' | xargs -i mount.sh {}
+echo $S3_BUCKET_LIST | sed 's+,+\n+g' | xargs -i mount.sh {}
