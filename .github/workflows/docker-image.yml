@@ -2,14 +2,17 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - v*
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Get tag
+      id: get_tag
+      run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -27,6 +30,8 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        tags: repigeons/s3http:latest
+        tags: |
+          repigeons/s3http:latest
+          repigeons/s3http:${{ steps.get_tag.outputs.TAG }}
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
         push: true

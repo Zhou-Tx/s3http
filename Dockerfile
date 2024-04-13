@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:alpine-slim
 
 RUN apk add -U s3fs-fuse && sed -i 's@user  nginx@user  root@g' /etc/nginx/nginx.conf
 
