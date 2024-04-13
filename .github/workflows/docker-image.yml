@@ -2,8 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    tags:
-      - v*
+    tags: [ "v*" ]
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         tags: |
-          repigeons/s3http:latest
           repigeons/s3http:${{ steps.get_tag.outputs.TAG }}
+          repigeons/s3http:latest
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
         push: true
